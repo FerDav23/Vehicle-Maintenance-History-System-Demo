@@ -300,4 +300,45 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: #777;
   text-align: center;
   font-style: italic;
+}
+
+.placas-error-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  background-color: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  border-radius: var(--border-radius-sm, 6px);
+  font-size: 0.95rem;
+}
+
+.placas-error-banner span {
+  flex: 1;
+  min-width: 0;
+}
+
+.placas-retry-btn {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  background: var(--primary-color, #8b0000);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm, 6px);
+  white-space: nowrap;
+}
+
+.placas-retry-btn:hover {
+  opacity: 0.9;
+}
+
+.placas-loading {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 4px;
 } 

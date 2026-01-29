@@ -21,4 +21,19 @@ client.interceptors.request.use(
   (error) => {
     return Promise.reject(error);
   }
+);
+
+// Add response interceptor: on 401/403 clear auth and redirect to login
+client.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+    if (status === 401 || status === 403) {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('tokenExpiration');
+      localStorage.removeItem('user');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
 ); 

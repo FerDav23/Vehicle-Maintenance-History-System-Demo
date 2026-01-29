@@ -2,9 +2,16 @@ import { useState, useEffect, useRef } from 'react';
 import { fetchPlacas, logout } from '../services/user';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
-import { FaChevronDown } from 'react-icons/fa';
 import InfoTable from './InfoTable';
 import InfoTableMobile from './InfoTableMobile';
+
+function ChevronDownIcon({ className }) {
+  return (
+    <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="1em" height="1em" fill="currentColor" aria-hidden>
+      <path d="M137.4 374.6c12.5 12.5 32.8 12.5 45.3 0l128-128c9.2-9.2 11.9-22.9 6.9-34.9s-16.6-19.8-29.6-19.8L32 192c-12.9 0-24.6 7.8-29.6 19.8s-2.2 25.7 6.9 34.9l128 128z" />
+    </svg>
+  );
+}
 
 export default function Dashboard({setIsAuthenticated}) {
   const [placas, setPlacas] = useState([]);
@@ -17,9 +24,30 @@ export default function Dashboard({setIsAuthenticated}) {
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobile, setIsMobile] = useState(false);
   const [userName, setUserName] = useState('');
+  const [placasError, setPlacasError] = useState(null);
+  const [placasLoading, setPlacasLoading] = useState(true);
   const dropdownRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
+
+  const loadPlacas = async () => {
+    setPlacasError(null);
+    setPlacasLoading(true);
+    try {
+      const data = await fetchPlacas();
+      setPlacas(data.placas);
+    } catch (error) {
+      const message = error?.message?.includes('Token')
+        ? 'Sesión expirada. Por favor, inicie sesión de nuevo.'
+        : 'No se pudieron cargar las placas. Intente de nuevo.';
+      setPlacasError(message);
+      if (import.meta.env.DEV) {
+        console.error('Error loading plates:', error);
+      }
+    } finally {
+      setPlacasLoading(false);
+    }
+  };
 
   useEffect(() => {
     // Load user name from localStorage
@@ -28,15 +56,6 @@ export default function Dashboard({setIsAuthenticated}) {
       // Remove quotes from the user name
       setUserName(user.replace(/"/g, ''));
     }
-
-    const loadPlacas = async () => {
-      try {
-        const data = await fetchPlacas();
-        setPlacas(data.placas);
-      } catch (error) {
-        console.error('Error loading plates:', error);
-      }
-    };
     loadPlacas();
 
     // Close dropdown when clicking outside
@@ -140,11 +159,27 @@ export default function Dashboard({setIsAuthenticated}) {
         </div>
       </div>
       
+      {placasError && (
+        <div className="placas-error-banner">
+          <span>{placasError}</span>
+          <button type="button" className="placas-retry-btn" onClick={loadPlacas}>
+            Reintentar
+          </button>
+          {placasError.includes('Sesión expirada') && (
+            <button type="button" className="placas-retry-btn" onClick={handleLogout}>
+              Ir a iniciar sesión
+            </button>
+          )}
+        </div>
+      )}
       <div className="filter-container">
         <form>
           <div className="filter-row">
             <div className="form-group">
               <label htmlFor="placa">Seleccione Placa:</label>
+              {placasLoading && !placasError && (
+                <span className="placas-loading" aria-hidden="true">Cargando placas...</span>
+              )}
               <div className={`custom-select-container ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
                 <div 
                   className="custom-select-header"
@@ -159,7 +194,7 @@ export default function Dashboard({setIsAuthenticated}) {
                     onChange={handleSearchChange}
                     onClick={handleInputClick}
                   />
-                  <FaChevronDown className="dropdown-icon" />
+                  <ChevronDownIcon className="dropdown-icon" />
                 </div>
                 {dropdownOpen && (
                   <div className="custom-select-options">
