@@ -4,7 +4,7 @@ import { login } from "../services/user";
 import './QrBridge.css';
 
 export default function QrBridge({ setIsAuthenticated }) {
-  const [status, setStatus] = useState("Procesando código QR…");
+  const [status, setStatus] = useState("Procesando Inicio de Sesión…");
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export default function QrBridge({ setIsAuthenticated }) {
         navigate('/dashboard');
       } catch (err) {
         console.error('Error during login or navigation:', err);
-        setError('Credenciales inválidas. Por favor, verifique su código QR.');
+        setError('Credenciales inválidas. Por favor, contactar soporte tecnico.');
         setStatus("Error en la autenticación");
       }
   }
@@ -30,11 +30,11 @@ export default function QrBridge({ setIsAuthenticated }) {
     // Parse query params from the URL the phone opened
     const url = new URL(window.location.href);
     const userNameUrl = url.searchParams.get("userName");   // or 'token', 'username', etc.
-    const passwordUrl = url.searchParams.get("password");
+    const passwordUrl = url.searchParams.get("rucCi");
 
     if (!userNameUrl || !passwordUrl) {
       setStatus("Faltan parámetros del código QR.");
-      setError("El código QR no contiene la información necesaria para iniciar sesión.");
+      setError("No contiene la información necesaria para iniciar sesión.");
       return;
     }
     handleLogin(userNameUrl, passwordUrl);
@@ -53,7 +53,7 @@ export default function QrBridge({ setIsAuthenticated }) {
   return (
     <div className="qr-bridge-container">
       <div className="qr-bridge-form">
-        <h2>Inicio de Sesión con Código QR</h2>
+        <h2>Inicio de Sesión</h2>
         {error && <div className="error-message">{error}</div>}
         <div className={`status-message ${getStatusClass()}`}>
           <p>{status}</p>
