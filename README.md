@@ -97,13 +97,13 @@ This repository contains:
 1. Clone the repository
 
 2. Install dependencies
-  npm install
+- npm install
   
 3. Start the development server
-  npm run dev
+- npm run dev
 
 4. Open the project in your browser
-  http://localhost:5173
+- http://localhost:5173
 
 # Screenshots
 
