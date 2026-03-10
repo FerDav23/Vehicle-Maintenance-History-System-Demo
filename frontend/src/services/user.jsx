@@ -1,7 +1,62 @@
-import client from './apiClient';
+import client, { isDemoMode } from './apiClient';
 
 // Token expiration time in milliseconds (24 hours)
 const TOKEN_EXPIRATION_TIME = 24 * 60 * 60 * 1000;
+
+// --- Demo mock data (used when VITE_DEMO_MODE=true) ---
+const DEMO_PLACAS = [
+  { placa: 'DEMO-001' },
+  { placa: 'DEMO-002' },
+  { placa: 'DEMO-003' },
+];
+
+function getDemoHistorial() {
+  return {
+    historial: [
+      {
+        fecha: '2024-06-15T00:00:00.000Z',
+        orden: 'ORD-1001',
+        km: '45000',
+        asesor: 'Asesor Demo',
+        CANTTotal: 3,
+        tipo: [
+          {
+            tipoName: 'Preventivo',
+            CANT: 2,
+            tipoArray: [
+              { cant: 1, codigo: 'COD-A01', detalle: 'Cambio de aceite motor' },
+              { cant: 1, codigo: 'COD-A02', detalle: 'Filtro de aceite' },
+            ],
+          },
+          {
+            tipoName: 'Correctivo',
+            CANT: 1,
+            tipoArray: [
+              { cant: 1, codigo: 'COD-B01', detalle: 'Revisión frenos (demo)' },
+            ],
+          },
+        ],
+      },
+      {
+        fecha: '2024-05-10T00:00:00.000Z',
+        orden: 'ORD-1002',
+        km: '42000',
+        asesor: 'Asesor Demo',
+        CANTTotal: 2,
+        tipo: [
+          {
+            tipoName: 'Preventivo',
+            CANT: 2,
+            tipoArray: [
+              { cant: 1, codigo: 'COD-A03', detalle: 'Alineación y balanceo' },
+              { cant: 1, codigo: 'COD-A04', detalle: 'Rotación de neumáticos' },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+}
 
 // Store token with expiration timestamp
 function storeTokenWithExpiration(token) {
@@ -40,6 +95,13 @@ function getValidToken() {
 
 export async function login(username, password) {
   try {
+    if (isDemoMode) {
+      const demoUser = username?.trim() || 'Demo User';
+      const demoToken = 'demo-token-not-real';
+      storeTokenWithExpiration(demoToken);
+      localStorage.setItem('user', JSON.stringify(demoUser));
+      return { token: demoToken, userName: demoUser };
+    }
     const response = await client.post('/users/login', { username, password });
     storeTokenWithExpiration(response.data.token);
     localStorage.setItem('user', JSON.stringify(response.data.userName));
@@ -58,24 +120,22 @@ export async function logout() {
 
 export async function fetchPlacas() {
   try {
-    // Check if token is expired before making request
+    if (isDemoMode) {
+      await new Promise((r) => setTimeout(r, 300));
+      return { placas: DEMO_PLACAS };
+    }
     if (isTokenExpired()) {
       clearExpiredToken();
       throw new Error('Token has expired. Please login again.');
     }
-
     const user = localStorage.getItem('user');
-    
     if (!user) {
       throw new Error('No user found in localStorage. Please login again.');
     }
-
     const response = await client.get(`/report/placas/${encodeURIComponent(user)}`);
-    
     if (!response.data) {
       throw new Error('Invalid response format from server');
     }
-
     return response.data;
   } catch (error) {
     console.error('Failed to fetch placas:', error.message);
@@ -85,16 +145,18 @@ export async function fetchPlacas() {
 
 export async function getHistorialData(placa, startDate, endDate) {
   try {
-    // Check if token is expired before making request
+    if (isDemoMode) {
+      await new Promise((r) => setTimeout(r, 400));
+      return getDemoHistorial();
+    }
     if (isTokenExpired()) {
       clearExpiredToken();
       throw new Error('Token has expired. Please login again.');
     }
-
     const response = await client.get(`/report/historial/${placa}?startDate=${startDate}&endDate=${endDate}`);
     return response.data;
   } catch (error) {
-    console.error('Failed to fetch historial data:', error);  
+    console.error('Failed to fetch historial data:', error);
     throw error;
   }
 }

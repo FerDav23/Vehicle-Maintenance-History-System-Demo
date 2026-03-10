@@ -1,6 +1,8 @@
-# Historial Mantenimiento CIM — Frontend
+# Historial Mantenimiento CIM — Frontend (Demo)
 
 Frontend for the **Maintenance History** application for CIM. It lets you query and filter vehicle maintenance history by plate, date range, code, and description.
+
+**This project is configured as a demo.** It does **not** connect to real production or staging backends. When `VITE_DEMO_MODE=true` (default), all data is mocked locally and no external API calls are made.
 
 ## Tech Stack
 
@@ -28,9 +30,10 @@ Copy the example file and adjust for your environment:
 cp .env.example .env
 ```
 
-| Variable        | Description                                           | Example   |
-|----------------|--------------------------------------------------------|-----------|
-| `VITE_API_URL` | API base URL (relative when using a proxy, or full URL) | `/api` or `https://api.example.com` |
+| Variable          | Description                                                                 | Example   |
+|-------------------|------------------------------------------------------------------------------|-----------|
+| `VITE_DEMO_MODE`  | When `true`, use mock data only (no backend). Default for this demo repo.   | `true`    |
+| `VITE_API_URL`    | API base URL (only used when `VITE_DEMO_MODE` is `false`)                    | `/api` or `https://demo-backend.example.com` |
 
 ## Scripts
 

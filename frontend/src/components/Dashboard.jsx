@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { fetchPlacas, logout } from '../services/user';
+import { isDemoMode } from '../services/apiClient';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import InfoTable from './InfoTable';
@@ -148,6 +149,11 @@ export default function Dashboard({setIsAuthenticated}) {
         </button>
       </div>
       
+      {isDemoMode && (
+        <div className="demo-data-banner" role="status">
+          Datos de demostración. No se conecta a un backend real.
+        </div>
+      )}
       <div className="welcome-section">
         <div className="welcome-content">
           <h3 className="welcome-title">

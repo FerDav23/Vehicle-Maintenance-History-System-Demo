@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/user';
+import { isDemoMode } from '../services/apiClient';
 import logoCIMImg from '../assets/CIM_LOGOTIPO.png';
 import logoImg from '../assets/FJ-LOGOTIPO.png';
 import './Login.css';
@@ -28,6 +29,11 @@ export default function Login({ setIsAuthenticated }) {
   return (
     <div className="login-container">
       <div className="login-form">
+        {isDemoMode && (
+          <div className="demo-banner" role="status" aria-live="polite">
+            Modo demo: no se conecta a un sistema real. Cualquier usuario y contraseña permiten ingresar.
+          </div>
+        )}
         <div className="logo-container">
         <img src={logoImg} alt="CIM Logo" className="login-logo" style={{ 
             maxWidth: '70px', 

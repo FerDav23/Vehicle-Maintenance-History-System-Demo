@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/user";
+import { isDemoMode } from "../services/apiClient";
 import './QrBridge.css';
 
 export default function QrBridge({ setIsAuthenticated }) {
@@ -27,10 +28,13 @@ export default function QrBridge({ setIsAuthenticated }) {
   }
 
   useEffect(() => {
-    // Parse query params from the URL the phone opened
     const url = new URL(window.location.href);
-    const userNameUrl = url.searchParams.get("userName");   // or 'token', 'username', etc.
-    const passwordUrl = url.searchParams.get("rucCi");
+    // Support generic demo params (demoUser, demoKey) and legacy param names
+    const userNameUrl =
+      url.searchParams.get("demoUser") ??
+      url.searchParams.get("userName");
+    const passwordUrl =
+      url.searchParams.get("demoKey") ?? url.searchParams.get("rucCi");
 
     if (!userNameUrl || !passwordUrl) {
       setStatus("Faltan parámetros del código QR.");
@@ -38,9 +42,6 @@ export default function QrBridge({ setIsAuthenticated }) {
       return;
     }
     handleLogin(userNameUrl, passwordUrl);
-
-    // Fire POST to your backend
-   
   }, []);
 
   const getStatusClass = () => {
@@ -53,6 +54,11 @@ export default function QrBridge({ setIsAuthenticated }) {
   return (
     <div className="qr-bridge-container">
       <div className="qr-bridge-form">
+        {isDemoMode && (
+          <div className="demo-banner" role="status">
+            Modo demo: inicio de sesión simulado. No se conecta a un sistema real.
+          </div>
+        )}
         <h2>Inicio de Sesión</h2>
         {error && <div className="error-message">{error}</div>}
         <div className={`status-message ${getStatusClass()}`}>

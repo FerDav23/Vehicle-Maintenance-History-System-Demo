@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 const API_URL = import.meta.env.VITE_API_URL;
+export const isDemoMode = import.meta.env.VITE_DEMO_MODE !== 'false';
 
-// Create an axios instance
+// Create an axios instance (only used when not in demo mode)
 const client = axios.create({
   baseURL: API_URL
 });
