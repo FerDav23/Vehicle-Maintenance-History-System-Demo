@@ -107,7 +107,8 @@ This repository contains:
 
 # Screenshots
 
-Example:
+<img width="1325" height="821" alt="image" src="https://github.com/user-attachments/assets/f61e11eb-99ad-4cab-a70a-1ee11cd54878" />
+
 
 
 ---
