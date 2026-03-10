@@ -94,7 +94,7 @@ const ReporteHistorialMobile = ({placa, startDate, endDate, codigo, descripcion}
           <NoData />
         ) : (
           <div className="cards-wrapper">
-            {historial.map((row, rowIndex) => (
+            {historial.filter(row => row.tipo && row.tipo.length > 0).map((row, rowIndex) => (
               <div key={rowIndex} className="maintenance-card">
                 {/* Header Information */}
                 <div className="card-header">
