@@ -95,7 +95,7 @@ This repository contains:
 # Running the Project
 
 1. Clone the repository
-
+- git clone https://github.com/FerDav23/Vehicle-Maintenance-History-System-Demo.git
 2. Install dependencies
 - npm install
   
