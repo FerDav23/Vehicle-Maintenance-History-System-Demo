@@ -1,12 +1,107 @@
-# React + Vite
+# Historial Mantenimiento CIM — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for the **Maintenance History** application for CIM. It lets you query and filter vehicle maintenance history by plate, date range, code, and description.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** 19
+- **Vite** 6
+- **React Router** 7
+- **Axios** (HTTP client with auth interceptors)
 
-## Expanding the ESLint configuration
+## Requirements
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Node.js** 18+ (20+ recommended)
+- **npm** 9+
+
+## Installation
+
+```bash
+npm install
+```
+
+## Environment Variables
+
+Copy the example file and adjust for your environment:
+
+```bash
+cp .env.example .env
+```
+
+| Variable        | Description                                           | Example   |
+|----------------|--------------------------------------------------------|-----------|
+| `VITE_API_URL` | API base URL (relative when using a proxy, or full URL) | `/api` or `https://api.example.com` |
+
+## Scripts
+
+| Command          | Description                    |
+|------------------|--------------------------------|
+| `npm run dev`    | Development server (HMR)        |
+| `npm run build`  | Production build               |
+| `npm run preview`| Preview production build       |
+| `npm run lint`   | Run ESLint                     |
+
+## Development
+
+```bash
+npm run dev
+```
+
+## Project Structure
+
+```
+frontend/
+├── src/
+│   ├── App.jsx              # Routes and auth state
+│   ├── main.jsx             # Entry, ErrorBoundary, BrowserRouter, initColors
+│   ├── base.css             # Base styles
+│   ├── variables.css        # CSS variables
+│   ├── config/
+│   │   ├── colors.js        # Design tokens and palette
+│   │   └── init-colors.js   # Injects colors as CSS variables
+│   ├── components/
+│   │   ├── Login.jsx        # Login (username/password)
+│   │   ├── QrBridge.jsx    # QR login (URL query params)
+│   │   ├── Dashboard.jsx   # Filters (plate, dates, code, description)
+│   │   ├── InfoTable.jsx   # History table (desktop)
+│   │   ├── InfoTableMobile.jsx  # Mobile history view
+│   │   ├── TableStates.jsx # Loading and empty states
+│   │   ├── ReportForm.jsx  # PDF report form
+│   │   ├── PdfViewer.jsx   # PDF viewer
+│   │   └── ErrorBoundary.jsx
+│   └── services/
+│       ├── apiClient.jsx    # Axios + Bearer token + 401/403 redirect
+│       └── user.jsx        # login, logout, fetchPlacas, getHistorialData
+├── index.html
+├── vite.config.js
+└── package.json
+```
+
+## Features
+
+- **Authentication**
+  - Username/password login; JWT stored in `localStorage` with 24h expiration.
+  - `/qr-login` route: automatic login from QR code using `userName` and `rucCi` in the query string.
+  - On 401/403 the client clears the token and redirects to `/login`.
+
+- **Dashboard**
+  - **Plate** selector (list loaded from the API per user).
+  - Filters: **start date**, **end date**, **code**, **description** (code and description filter client-side on loaded history).
+  - History table: date, order, km, advisor, type, quantity, code, maintenance description.
+  - Mobile layout (≤768px) via `InfoTableMobile`.
+
+- **Theming**
+  - Colors and tokens in `src/config/colors.js`; `init-colors.js` exposes them as CSS variables for consistent styling.
+
+## Production Build
+
+```bash
+npm run build
+```
+
+Output goes to `dist/`. To preview the build locally:
+
+```bash
+npm run preview
+```
+
