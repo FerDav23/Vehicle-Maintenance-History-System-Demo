@@ -23,10 +23,10 @@ export default class ErrorBoundary extends Component {
       return (
         <div className="error-boundary">
           <div className="error-boundary-content">
-            <h1>Algo salió mal</h1>
-            <p>Ha ocurrido un error inesperado. Por favor, intente recargar la página.</p>
+            <h1>Something went wrong</h1>
+            <p>An unexpected error occurred. Please try reloading the page.</p>
             <button type="button" className="error-boundary-btn" onClick={this.handleReload}>
-              Recargar página
+              Reload page
             </button>
           </div>
         </div>

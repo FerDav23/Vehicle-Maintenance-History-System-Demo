@@ -39,8 +39,8 @@ export default function Dashboard({setIsAuthenticated}) {
       setPlacas(data.placas);
     } catch (error) {
       const message = error?.message?.includes('Token')
-        ? 'Sesión expirada. Por favor, inicie sesión de nuevo.'
-        : 'No se pudieron cargar las placas. Intente de nuevo.';
+        ? 'Session expired. Please sign in again.'
+        : 'Could not load plates. Please try again.';
       setPlacasError(message);
       if (import.meta.env.DEV) {
         console.error('Error loading plates:', error);
@@ -143,24 +143,24 @@ export default function Dashboard({setIsAuthenticated}) {
     <div className='main-container'>
     <div className="dashboard-container">
       <div className="dashboard-header">
-        <h2>Reporte Historial Mantenimiento</h2>
+        <h2>Maintenance History Report</h2>
         <button onClick={handleLogout} className="logout-btn">
-          Cerrar Sesión
+          Sign Out
         </button>
       </div>
       
       {isDemoMode && (
         <div className="demo-data-banner" role="status">
-          Datos de demostración. No se conecta a un backend real.
+          Demo data. Not connected to a real backend.
         </div>
       )}
       <div className="welcome-section">
         <div className="welcome-content">
           <h3 className="welcome-title">
-            ¡Bienvenido{userName ? ` ${userName}` : ''}!
+            Welcome{userName ? ` ${userName}` : ''}!
           </h3>
           <p className="welcome-message">
-            Bienvenido al sistema de gestión de historial de mantenimiento.
+            Welcome to the maintenance history management system.
           </p>
         </div>
       </div>
@@ -169,11 +169,11 @@ export default function Dashboard({setIsAuthenticated}) {
         <div className="placas-error-banner">
           <span>{placasError}</span>
           <button type="button" className="placas-retry-btn" onClick={loadPlacas}>
-            Reintentar
+            Retry
           </button>
-          {placasError.includes('Sesión expirada') && (
+          {placasError.includes('Session expired') && (
             <button type="button" className="placas-retry-btn" onClick={handleLogout}>
-              Ir a iniciar sesión
+              Go to sign in
             </button>
           )}
         </div>
@@ -182,9 +182,9 @@ export default function Dashboard({setIsAuthenticated}) {
         <form>
           <div className="filter-row">
             <div className="form-group">
-              <label htmlFor="placa">Seleccione Placa:</label>
+              <label htmlFor="placa">Select Plate:</label>
               {placasLoading && !placasError && (
-                <span className="placas-loading" aria-hidden="true">Cargando placas...</span>
+                <span className="placas-loading" aria-hidden="true">Loading plates...</span>
               )}
               <div className={`custom-select-container ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
                 <div 
@@ -195,7 +195,7 @@ export default function Dashboard({setIsAuthenticated}) {
                     ref={inputRef}
                     type="text"
                     className="custom-select-input"
-                    placeholder="Seleccionar..."
+                    placeholder="Select..."
                     value={searchTerm}
                     onChange={handleSearchChange}
                     onClick={handleInputClick}
@@ -216,7 +216,7 @@ export default function Dashboard({setIsAuthenticated}) {
                       ))
                     ) : (
                       <div className="custom-select-no-results">
-                        No se encontraron placas
+                        No plates found
                       </div>
                     )}
                   </div>
@@ -232,7 +232,7 @@ export default function Dashboard({setIsAuthenticated}) {
             </div>
             
             <div className="form-group">
-              <label htmlFor="startDate">Fecha inicio:</label>
+              <label htmlFor="startDate">Start date:</label>
               <input 
                 id="startDate" 
                 type="date" 
@@ -244,7 +244,7 @@ export default function Dashboard({setIsAuthenticated}) {
             </div>
             
             <div className="form-group">
-              <label htmlFor="endDate">Fecha fin:</label>
+              <label htmlFor="endDate">End date:</label>
               <input 
                 id="endDate" 
                 type="date" 
@@ -256,26 +256,26 @@ export default function Dashboard({setIsAuthenticated}) {
             </div>
 
             <div className="form-group">
-              <label htmlFor="codigo">Código:</label>
+              <label htmlFor="codigo">Code:</label>
               <input 
                 id="codigo" 
                 type="text" 
                 value={codigo} 
                 onChange={(e) => setCodigo(e.target.value)}
                 className="form-input"
-                placeholder="Ingrese código"
+                placeholder="Enter code"
               />
             </div>
 
             <div className="form-group">
-              <label htmlFor="descripcion">Descripción de Mantenimiento:</label>
+              <label htmlFor="descripcion">Maintenance description:</label>
               <input 
                 id="descripcion" 
                 type="text" 
                 value={descripcion} 
                 onChange={(e) => setDescripcion(e.target.value)}
                 className="form-input"
-                placeholder="Ingrese descripción"
+                placeholder="Enter description"
               />
             </div>
           </div>

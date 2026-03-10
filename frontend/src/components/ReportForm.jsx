@@ -16,7 +16,7 @@ export default function ReportForm({ onPdf }) {
       onPdf(url);
     } catch (err) {
       console.error('Error generating report:', err);
-      setError('Error al generar el reporte. Intente nuevamente.');
+      setError('Error generating report. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -26,11 +26,11 @@ export default function ReportForm({ onPdf }) {
       <input
         value={placa}
         onChange={e => setPlaca(e.target.value)}
-        placeholder="Placa"
+        placeholder="Plate"
         required
       />
       <button type="submit" disabled={loading}>
-        {loading ? 'Generando...' : 'Generar PDF'}
+        {loading ? 'Generating...' : 'Generate PDF'}
       </button>
       {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
     </form>

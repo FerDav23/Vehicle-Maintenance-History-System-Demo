@@ -5,7 +5,7 @@ import { isDemoMode } from "../services/apiClient";
 import './QrBridge.css';
 
 export default function QrBridge({ setIsAuthenticated }) {
-  const [status, setStatus] = useState("Procesando Inicio de Sesión…");
+  const [status, setStatus] = useState("Processing sign in…");
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -16,14 +16,14 @@ export default function QrBridge({ setIsAuthenticated }) {
     
     try {
         setError('');
-        setStatus("Iniciando sesión…");
+        setStatus("Signing in…");
         await login(usernameStr, passwordStr);
         if (setIsAuthenticated) setIsAuthenticated(true);
         navigate('/dashboard');
       } catch (err) {
         console.error('Error during login or navigation:', err);
-        setError('Credenciales inválidas. Por favor, contactar soporte tecnico.');
-        setStatus("Error en la autenticación");
+        setError('Invalid credentials. Please contact technical support.');
+        setStatus("Authentication error");
       }
   }
 
@@ -37,8 +37,8 @@ export default function QrBridge({ setIsAuthenticated }) {
       url.searchParams.get("demoKey") ?? url.searchParams.get("rucCi");
 
     if (!userNameUrl || !passwordUrl) {
-      setStatus("Faltan parámetros del código QR.");
-      setError("No contiene la información necesaria para iniciar sesión.");
+      setStatus("QR code is missing required parameters.");
+      setError("Missing information required to sign in.");
       return;
     }
     handleLogin(userNameUrl, passwordUrl);
@@ -46,7 +46,7 @@ export default function QrBridge({ setIsAuthenticated }) {
 
   const getStatusClass = () => {
     if (error) return 'error';
-    if (status.includes('Procesando') || status.includes('Iniciando')) return 'processing';
+    if (status.includes('Processing') || status.includes('Signing')) return 'processing';
     if (status.includes('Error')) return 'error';
     return '';
   };
@@ -56,10 +56,10 @@ export default function QrBridge({ setIsAuthenticated }) {
       <div className="qr-bridge-form">
         {isDemoMode && (
           <div className="demo-banner" role="status">
-            Modo demo: inicio de sesión simulado. No se conecta a un sistema real.
+            Demo mode: simulated sign-in. Not connected to a real system.
           </div>
         )}
-        <h2>Inicio de Sesión</h2>
+        <h2>Sign In</h2>
         {error && <div className="error-message">{error}</div>}
         <div className={`status-message ${getStatusClass()}`}>
           <p>{status}</p>

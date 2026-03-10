@@ -106,4 +106,12 @@
 .login-button:disabled {
   background-color: var(--disabled-color);
   cursor: not-allowed;
+}
+
+.login-demo-note {
+  margin-top: var(--spacing-md);
+  margin-bottom: 0;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-align: center;
 } 

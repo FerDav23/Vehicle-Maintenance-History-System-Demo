@@ -85,7 +85,7 @@ const ReporteHistorialMobile = ({placa, startDate, endDate, codigo, descripcion}
 
   return (
     <div className="reporte-container-mobile">
-      <h2 className="reporte-title-mobile">REPORTE HISTORIAL MANTENIMIENTO</h2>
+      <h2 className="reporte-title-mobile">MAINTENANCE HISTORY REPORT</h2>
 
       <div className="mobile-cards-container">
         {isLoading ? (
@@ -100,11 +100,11 @@ const ReporteHistorialMobile = ({placa, startDate, endDate, codigo, descripcion}
                 <div className="card-header">
                   <div className="header-row">
                     <div className="header-item">
-                      <span className="label">FECHA:</span>
+                      <span className="label">DATE:</span>
                       <span className="value">{formatDate(row.fecha)}</span>
                     </div>
                     <div className="header-item">
-                      <span className="label">ORDEN:</span>
+                      <span className="label">ORDER:</span>
                       <span className="value">{row.orden}</span>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ const ReporteHistorialMobile = ({placa, startDate, endDate, codigo, descripcion}
                       <span className="value">{row.km}</span>
                     </div>
                     <div className="header-item">
-                      <span className="label">ASESOR:</span>
+                      <span className="label">ADVISOR:</span>
                       <span className="value">{row.asesor}</span>
                     </div>
                   </div>
@@ -132,15 +132,15 @@ const ReporteHistorialMobile = ({placa, startDate, endDate, codigo, descripcion}
                         {tipo.tipoArray.map((item, idx) => (
                           <div key={idx} className="maintenance-item">
                             <div className="item-row">
-                              <div className="item-label">CANT:</div>
+                              <div className="item-label">QTY:</div>
                               <div className="item-value">{item.cant}</div>
                             </div>
                             <div className="item-row">
-                              <div className="item-label">CÓDIGO:</div>
+                              <div className="item-label">CODE:</div>
                               <div className="item-value code">{item.codigo}</div>
                             </div>
                             <div className="item-row description">
-                              <div className="item-label">DESCRIPCIÓN:</div>
+                              <div className="item-label">DESCRIPTION:</div>
                               <div className="item-value">{item.detalle}</div>
                             </div>
                           </div>
@@ -156,7 +156,7 @@ const ReporteHistorialMobile = ({placa, startDate, endDate, codigo, descripcion}
       </div>
 
       <div className="footer-mobile">
-        <span>Total de registros: {historial.length}</span>
+        <span>Total records: {historial.length}</span>
       </div>
     </div>
   );

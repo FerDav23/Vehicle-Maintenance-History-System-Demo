@@ -5,8 +5,8 @@ export const NoData = () => {
   return (
     <div className="no-data-container">
       <div className="no-data-icon">📋</div>
-      <h3>No hay datos disponibles</h3>
-      <p>No se encontró historial de mantenimiento para los criterios seleccionados.</p>
+      <h3>No data available</h3>
+      <p>No maintenance history found for the selected criteria.</p>
     </div>
   );
 };
@@ -15,7 +15,7 @@ export const Loading = () => {
   return (
     <div className="loading-container">
       <div className="loading-spinner"></div>
-      <p>Cargando datos...</p>
+      <p>Loading data...</p>
     </div>
   );
 }; 

@@ -80,7 +80,7 @@ const ReporteHistorial = ({placa, startDate, endDate, codigo, descripcion}) => {
 
   return (
     <div className="reporte-container">
-      <h2 className="reporte-title">REPORTE HISTORIAL MANTENIMIENTO</h2>
+      <h2 className="reporte-title">MAINTENANCE HISTORY REPORT</h2>
 
       <div className="table-container">
         {isLoading ? (
@@ -91,14 +91,14 @@ const ReporteHistorial = ({placa, startDate, endDate, codigo, descripcion}) => {
           <table className="historial-table">
             <thead style={{color: 'white', textAlign: 'center'}}>
               <tr>
-                <th>FECHA</th>
-                <th>ORDEN</th>
+                <th>DATE</th>
+                <th>ORDER</th>
                 <th>KM</th>
-                <th>ASESOR</th>
-                <th>TIPO</th>
-                <th>CANT</th>
-                <th>CODIGO</th>
-                <th>DESCRIPCIÓN DE MANTENIMIENTO</th>
+                <th>ADVISOR</th>
+                <th>TYPE</th>
+                <th>QTY</th>
+                <th>CODE</th>
+                <th>MAINTENANCE DESCRIPTION</th>
               </tr>
             </thead>
             <tbody>

@@ -17,22 +17,22 @@ function getDemoHistorial() {
         fecha: '2024-06-15T00:00:00.000Z',
         orden: 'ORD-1001',
         km: '45000',
-        asesor: 'Asesor Demo',
+        asesor: 'Demo Advisor',
         CANTTotal: 3,
         tipo: [
           {
-            tipoName: 'Preventivo',
+            tipoName: 'Preventive',
             CANT: 2,
             tipoArray: [
-              { cant: 1, codigo: 'COD-A01', detalle: 'Cambio de aceite motor' },
-              { cant: 1, codigo: 'COD-A02', detalle: 'Filtro de aceite' },
+              { cant: 1, codigo: 'COD-A01', detalle: 'Engine oil change' },
+              { cant: 1, codigo: 'COD-A02', detalle: 'Oil filter' },
             ],
           },
           {
-            tipoName: 'Correctivo',
+            tipoName: 'Corrective',
             CANT: 1,
             tipoArray: [
-              { cant: 1, codigo: 'COD-B01', detalle: 'Revisión frenos (demo)' },
+              { cant: 1, codigo: 'COD-B01', detalle: 'Brake inspection (demo)' },
             ],
           },
         ],
@@ -41,15 +41,15 @@ function getDemoHistorial() {
         fecha: '2024-05-10T00:00:00.000Z',
         orden: 'ORD-1002',
         km: '42000',
-        asesor: 'Asesor Demo',
+        asesor: 'Demo Advisor',
         CANTTotal: 2,
         tipo: [
           {
-            tipoName: 'Preventivo',
+            tipoName: 'Preventive',
             CANT: 2,
             tipoArray: [
-              { cant: 1, codigo: 'COD-A03', detalle: 'Alineación y balanceo' },
-              { cant: 1, codigo: 'COD-A04', detalle: 'Rotación de neumáticos' },
+              { cant: 1, codigo: 'COD-A03', detalle: 'Alignment and balancing' },
+              { cant: 1, codigo: 'COD-A04', detalle: 'Tire rotation' },
             ],
           },
         ],

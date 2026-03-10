@@ -22,12 +22,13 @@ export default function Login({ setIsAuthenticated }) {
       navigate('/dashboard');
     } catch (err) {
       console.error('Error during login or navigation:', err);
-      setError('Credenciales inválidas');
+      setError('Invalid credentials');
     }
   };
 
   return (
     <div className="login-container">
+      
       <div className="login-form">
         <div className="logo-container">
         <img src={logoImg} alt="CIM Logo" className="login-logo" style={{ 
@@ -40,11 +41,11 @@ export default function Login({ setIsAuthenticated }) {
            }} />
           <img src={logoCIMImg} alt="CIM Logo" className="login-logo" />
         </div>
-        <h2>Iniciar Sesión</h2>
+        <h2>Sign In</h2>
         {error && <div className="error-message">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="username">Usuario</label>
+            <label htmlFor="username">Username</label>
             <input
               id="username"
               type="text"
@@ -54,7 +55,7 @@ export default function Login({ setIsAuthenticated }) {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="password">Password</label>
             <input
               id="password"
               type="password"
@@ -63,9 +64,12 @@ export default function Login({ setIsAuthenticated }) {
               required
             />
           </div>
-          <button type="submit" className="login-button">Ingresar</button>
+          <button type="submit" className="login-button">Sign In</button>
         
         </form>
+        {isDemoMode && (
+          <p className="login-demo-note">Demo: use any username and password.</p>
+        )}
       </div>
     </div>
   );
