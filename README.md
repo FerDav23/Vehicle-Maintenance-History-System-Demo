@@ -106,9 +106,16 @@ This repository contains:
 - http://localhost:5173
 
 # Screenshots
-
+PC Version examples:
 <img width="1325" height="821" alt="image" src="https://github.com/user-attachments/assets/f61e11eb-99ad-4cab-a70a-1ee11cd54878" />
 
+<img width="1531" height="597" alt="image" src="https://github.com/user-attachments/assets/f966dca4-75ab-42f6-96fa-7f7223517477" />
+
+Mobile version examples:
+<img width="421" height="747" alt="image" src="https://github.com/user-attachments/assets/6f1e153c-2912-4470-8a9c-bd7520533cfd" />
+
+
+<img width="423" height="677" alt="image" src="https://github.com/user-attachments/assets/5f80a96b-cdd0-4a72-8c25-739cc12f4e50" />
 
 
 ---
