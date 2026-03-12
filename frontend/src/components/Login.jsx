@@ -68,7 +68,10 @@ export default function Login({ setIsAuthenticated }) {
         
         </form>
         {isDemoMode && (
-          <p className="login-demo-note">Demo: use any username and password.</p>
+          <div className="login-demo-note" role="alert" aria-live="polite">
+            <strong className="login-demo-note-title">Demo mode</strong>
+            <p className="login-demo-note-text">Use <strong>any username</strong> and <strong>any password</strong> to sign in. No account required.</p>
+          </div>
         )}
       </div>
     </div>
