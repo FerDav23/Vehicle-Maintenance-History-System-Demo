@@ -108,36 +108,190 @@
   cursor: not-allowed;
 }
 
-/* High-visibility demo instructions so users actually read them */
-.login-demo-note {
-  margin-top: var(--spacing-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
+/* Demo instructions popup */
+.demo-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(6px);
+  animation: demo-popup-fade-in 0.25s ease-out;
+}
+
+@keyframes demo-popup-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.demo-popup-card {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem 1.75rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+  animation: demo-popup-scale-in 0.3s ease-out;
+}
+
+@keyframes demo-popup-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.demo-popup-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.06);
+  color: #64748b;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.demo-popup-close:hover {
+  background: rgba(15, 23, 42, 0.1);
+  color: #0f172a;
+}
+
+.demo-popup-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+  border-radius: 14px;
+}
+
+.demo-popup-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
   text-align: center;
-  border-radius: var(--border-radius-sm);
-  border: 2px solid #0d6efd;
-  background: linear-gradient(135deg, #e7f1ff 0%, #cfe2ff 100%);
-  box-shadow: 0 2px 8px rgba(13, 110, 253, 0.2);
+  letter-spacing: -0.02em;
 }
 
-.login-demo-note-title {
-  display: block;
-  font-size: 1rem;
-  color: #0d6efd;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 0.35rem;
+.demo-popup-subtitle {
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+  color: #64748b;
+  text-align: center;
 }
 
-.login-demo-note-text {
-  margin: 0;
+.demo-popup-steps {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+  text-align: left;
   font-size: 0.95rem;
-  color: #084298;
-  line-height: 1.4;
+  color: #334155;
+  line-height: 1.65;
 }
 
-.login-demo-note-text strong {
-  color: #052c65;
-  background-color: rgba(13, 110, 253, 0.15);
-  padding: 0.1em 0.35em;
-  border-radius: 3px;
+.demo-popup-steps li {
+  margin-bottom: 0.6rem;
+}
+
+.demo-popup-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.demo-popup-steps strong {
+  color: #0f172a;
+}
+
+.demo-popup-steps em {
+  color: #0d9488;
+  font-style: normal;
+  background: rgba(13, 148, 136, 0.08);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+}
+
+.demo-popup-required {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+.demo-popup-note {
+  margin: 0 0 1.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+  color: #475569;
+  background: #f1f5f9;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.demo-popup-cta {
+  display: block;
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.demo-popup-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.45);
+}
+
+.demo-popup-cta:active {
+  transform: translateY(0);
+}
+
+/* Link to reopen demo instructions */
+.login-demo-reopen {
+  display: block;
+  width: 100%;
+  margin-top: var(--spacing-md);
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  color: #0d9488;
+  background: transparent;
+  border: 1px dashed rgba(13, 148, 136, 0.5);
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.login-demo-reopen:hover {
+  background: rgba(13, 148, 136, 0.08);
+  border-color: #0d9488;
+  color: #0f766e;
 } 
